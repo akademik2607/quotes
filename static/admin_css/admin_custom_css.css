@@ -1,0 +1,21 @@
+.fieldBox {
+    flex-direction: column;
+}
+
+.aligned label + p.date {
+    padding-top: 0;
+}
+
+
+fieldset.contact-information .form-row>.flex-container > div {
+    width: 24%;
+}
+
+
+fieldset.contact-information .fieldBox p {
+    width: 100%;
+}
+
+fieldset.contact-information .fieldBox input {
+    width: 100%;
+}

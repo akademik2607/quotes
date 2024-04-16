@@ -1,0 +1,425 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{% static '/css/bootstrap/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static '/css/bootstrap/bootstrap-grid.min.css' %}">
+  <link rel="stylesheet" href="{% static '/css/bootstrap/bootstrap-reboot.min.css' %}">
+  <link rel="stylesheet" href="{% static '/css/bootstrap/bootstrap-utilities.min.css' %}">
+  
+  <link rel="stylesheet" href="{% static '/css/datetimepicker/classic.css' %}">
+  <link rel="stylesheet" href="{% static '/css/datetimepicker/classic.date.css' %}">
+  <link rel="stylesheet" href="{% static '/css/style.css' %}">
+</head>
+<body>
+  <header class="header">
+    <div class="header-container">
+      <img class="header__logo" src="{% static '/img/logo.svg' %}" alt="logo">
+    </div>
+  </header>
+  <main class="main">
+    <div class="main-img">
+      <img class="main-img__img" src="{% static '/img/main-img.png' %}" alt="main-img">
+    </div>
+    <div class="main-form">
+      <div class="main__container">
+        <h1 class="main__title">Request a Quote</h1>
+        <ul class="progress-list">
+          <li class="progress-list__item progress-list-item done" data-step="1">
+            <span class="progress-list__number">1</span>
+            <span class="progress-list__text">When</span>
+          </li>
+          <li class="progress-list__item progress-list-item" data-step="2">
+            <span class="progress-list__number">2</span>
+            <span class="progress-list__text">From</span>
+          </li>
+          <li class="progress-list__item progress-list-item" data-step="3">
+            <span class="progress-list__number">3</span>
+            <span class="progress-list__text">To</span>
+          </li>
+          <li class="progress-list__item progress-list-item" data-step="4">
+            <span class="progress-list__number">4</span>
+            <span class="progress-list__text">What</span>
+          </li>
+          <li class="progress-list__item progress-list-item" data-step="5">
+            <span class="progress-list__number">5</span>
+            <span class="progress-list__text">Details</span>
+          </li>
+          <li class="progress-list__item progress-list-item" data-step="6">
+            <span class="progress-list__number">6</span>
+            <span class="progress-list__text">More</span>
+          </li>
+          <li class="progress-list__item progress-list-item progress-list--last" data-step="7">
+            <span class="progress-list__number">7</span>
+            <span class="progress-list__text">Info</span>
+          </li>
+        </ul>
+
+
+        <section class="form-section">
+          <form class="form" action="">
+
+            <div class="form__content">
+              <div class="form__when when form__step" data-step="1">
+                <h3 class="form__title">When will You move?</h3>
+
+                <div class="when__wrapper">
+                  <div class="input-group">
+                    <div class="input-box when__services when-service">
+                      <label for="service" class="when-service__label">Choose service <span class="required-star">*</span></label>
+                        <div class="input-box__wrapper has-chevron">
+                          <select name="service" id="service" class="when-service__select input-box__field">
+                            <option value="" disabled selected hidden>Choose service</option>
+                            <option value=""></option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="input-box when__date when-date">
+                      <label for="service" class="when-service__label">Preffered move date <span class="required-star">*</span></label>
+                        <div class="input-box__wrapper has-chevron has-calendar">
+                          <input type="text" name="move-date" id="move-date"  class="when-date__input input-box__field" placeholder="Choose Date">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <div class="input-box when__need-storage when-need-storage">
+                      <input type="checkbox" name="need-storage" id="need-storage"><label for="need-storage">Need storage services</label>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+
+              <div class="form__from from form__step" data-step="2">
+                <h3 class="form__title">Moving From</h3>
+
+                <div class="from__wrapper">
+                  <div class="input-group">
+                    <div class="input-box from__country from-country">
+                      <label for="from-country" class="from-country__label">Choose country <span class="required-star">*</span></label>
+                        <div class="input-box__wrapper has-chevron">
+                          <select name="from-country" id="from-country" class="from-service__select input-box__field">
+                            <option value="" disabled selected hidden>Choose country</option>
+                            <option value=""></option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="input-box from__city from-city">
+                      <label for="from-city" class="from-city__label">City <span class="required-star">*</span></label>
+                        <div class="input-box__wrapper">
+                          <input type="text" name="from-city" id="from-city"  class="from-city__input input-box__field" placeholder="Choose City">
+                        </div>
+                    </div>
+                  </div>
+                  <div class="input-group">
+                    <div class="input-box from__address from-address">
+                      <label for="from-address" class="from-address__label">Address</label>
+                        <div class="input-box__wrapper">
+                          <input type="text" name="from-address" id="from-address"  class="from-address__input input-box__field" placeholder="Enter address">
+                        </div>
+                    </div>
+                    <div class="input-box from__method from-method">
+                      <label for="from-method" class="from-method__label">Access method <span class="required-star">*</span></label>
+                        <div class="input-box__wrapper has-chevron">
+                          <select name="from-method" id="from-method" class="from-method__select input-box__field">
+                            <option value="" disabled selected hidden>Choose method</option>
+                            <option value=""></option>
+                          </select>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="form__to to form__step" data-step="3">
+                <h3 class="form__title">Moving To</h3>
+
+                <div class="to__wrapper">
+
+                  <div class="input-group">
+                    <div class="input-box to__country to-country">
+                      <label for="to-country" class="to-country__label">Choose country <span class="required-star">*</span></label>
+                        <div class="input-box__wrapper has-chevron">
+                          <select name="to-country" id="to-country" class="to-country__select input-box__field">
+                            <option value="" disabled selected hidden>Choose country</option>
+                            <option value=""></option>
+                          </select>
+                        </div>
+                    </div>
+                    <div class="input-box to__city to-city">
+                      <label for="to-city" class="to-city__label">City <span class="required-star">*</span></label>
+                        <div class="input-box__wrapper">
+                          <input type="text" name="to-city" id="to-city"  class="to-city__input input-box__field" placeholder="Choose City">
+                        </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+              <div class="form__what what form__step" data-step="4">
+                <h3 class="form__title">What are you moving?</h3>
+
+                <div class="what__wrapper">
+
+                  <div class="input-group">
+                    <div class="input-box what__complete what-complete">
+                      <input type="radio" name="what" id="what-complete"  class="what-complete__input input-box__field" value="Complete household">
+                      <label for="what-complete" class="what-complete__label">Complete household</label>
+                    </div>
+                    <div class="input-box what__part what-part">
+                      <input type="radio" name="what" id="what-part"  class="what-part__input input-box__field" value="Part of household">
+                      <label for="what-part" class="what-part__label">Part of household</label>
+                    </div>
+                  </div>
+
+                  <div class="input-group">
+                    <div class="input-box what__pieces what-pieces">
+                      <input type="radio" name="what" id="what-pieces"  class="what-pieces__input input-box__field" value="Few Pieces">
+                      <label for="what-pieces" class="what-pieces__label">Few Pieces</label>
+                    </div>
+                    <div class="input-box what__boxes what-boxes">
+                      <input type="radio" name="what" id="what-boxes"  class="what-boxes__input input-box__field" value="Some boxes or luggage">
+                      <label for="what-boxes" class="what-boxes__label">Some boxes or luggage</label>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+              <div class="form__calc calc form__step" data-step="5">
+                <h3 class="form__title">What are you moving?</h3>
+
+                <div class="calc__wrapper">
+
+                  <input type="text" class="calc__search" placeholder="Search">
+                  <div class="calc__container calc-container">
+                    <div class="calc__category calc-category">
+                      <button class="calc-category__button calc-category__top-button">
+                        <img src="{% static '/img/arrow-red.svg' %}" alt="arrow-top">
+                      </button>
+                      <ul class="calc-category__list">
+                        <li class="calc-category__item">
+                          <input type="radio" id="calc-category__1" name="calc-category" class="calc-category__input" value="1">
+                          <label for="calc-category__1" class="calc-category__label">
+                            <img src="{% static '/img/calc-category/icon-1.svg' %}" alt="" class="calc-category__img">
+                            <img src="{% static '/img/calc-category/icon-1-hover.svg' %}" alt="" class="calc-category__img-hover">
+                          </label>
+                        </li>
+                        <li class="calc-category__item">
+                          <input type="radio" id="calc-category__2" name="calc-category" class="calc-category__input" value="2">
+                          <label for="calc-category__2" class="calc-category__label">
+                            <img src="" alt="" class="calc-category__img">
+                            <img src="" alt="" class="calc-category__img-hover">
+                          </label>
+                        </li>
+                        <li class="calc-category__item">
+                          <input type="radio" id="calc-category__3" name="calc-category" class="calc-category__input" value="3">
+                          <label for="calc-category__3" class="calc-category__label">
+                            <img src="" alt="" class="calc-category__img">
+                            <img src="" alt="" class="calc-category__img-hover">
+                          </label>
+                        </li>
+                        <li class="calc-category__item">
+                          <input type="radio" id="calc-category__4" name="calc-category" class="calc-category__input" value="4">
+                          <label for="calc-category__4" class="calc-category__label">
+                            <img src="" alt="" class="calc-category__img">
+                            <img src="" alt="" class="calc-category__img-hover">
+                          </label>
+                        </li>
+                        <li class="calc-category__item">
+                          <input type="radio" id="calc-category__5" name="calc-category" class="calc-category__input" value="5">
+                          <label for="calc-category__5" class="calc-category__label">
+                            <img src="" alt="" class="calc-category__img">
+                            <img src="" alt="" class="calc-category__img-hover">
+                          </label>
+                        </li>
+                      </ul>
+                      <button class="calc-category__button calc-category__bottom-button">
+                        <img src="{% static '/img/arrow-red.svg' %}" alt="arrow-top">
+                      </button>
+                    </div>
+
+                    <div class="calc__content calc-content">
+                      <div class="calc-content__wrapper">
+                        <div class="calc-content__category" data-item="1">
+                          <div class="calc-content__top">
+                            <h4 class="calc-content__title"><img src="" alt=""></h4>
+                            <button class="calc-content__button">Didn't find an item?</button>
+                          </div>
+                          <div class="calc-content__columns calc-content-columns">
+                            <ul class="calc-content-columns__titles row justify-content-between">
+                              <li class="calc-content-columns__title col-5">Item</li>
+                              <li class="calc-content-columns__title col-3">Item’s Volume</li>
+                              <li class="calc-content-columns__title col-3">Amount</li>
+                            </ul>
+                          </div>
+                          <ul class="calc-content__list">
+                            <li class="calc-content__item calc-content-item row justify-content-between">
+                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
+                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
+                              <div class="calc-content-item__count col-3">
+                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
+                                <span class="calc-conten-item__input" data-value="0"> 0</span>
+                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
+                              </div>
+                            </li>
+  
+                            <li class="calc-content__item calc-content-item row justify-content-between">
+                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
+                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
+                              <div class="calc-content-item__count col-3">
+                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
+                                <span class="calc-conten-item__input" data-value="0">0</span>
+                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
+                              </div>
+                            </li>
+  
+                            <li class="calc-content__item calc-content-item row justify-content-between">
+                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
+                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
+                              <div class="calc-content-item__count col-3">
+                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
+                                <span class="calc-conten-item__input" data-value="0">0</span>
+                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
+                              </div>
+                            </li>
+  
+                            <li class="calc-content__item calc-content-item row justify-content-between">
+                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
+                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
+                              <div class="calc-content-item__count col-3">
+                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
+                                <span class="calc-conten-item__input" data-value="0">0</span>
+                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
+                              </div>
+                            </li>
+  
+                            <li class="calc-content__item calc-content-item row justify-content-between">
+                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
+                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
+                              <div class="calc-content-item__count col-3">
+                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
+                                <span class="calc-conten-item__input" data-value="0">0</span>
+                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
+                              </div>
+                            </li>
+  
+                            <li class="calc-content__item calc-content-item row justify-content-between">
+                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
+                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
+                              <div class="calc-content-item__count col-3">
+                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
+                                <span class="calc-conten-item__input" data-value="0">0</span>
+                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
+                              </div>
+                            </li>
+  
+                            <li class="calc-content__item calc-content-item row justify-content-between">
+                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
+                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
+                              <div class="calc-content-item__count col-3">
+                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
+                                <span class="calc-conten-item__input" data-value="0">0</span>
+                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
+                              </div>
+                            </li>
+                          </ul>
+  
+                        </div>
+                      </div>
+                      
+                      <input type="text" class="calc-content__result" disabled>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+
+
+              <div class="form__few few form__step current" data-step="6">
+                <h3 class="form__title">Few more questions</h3>
+
+                <div class="few__wrapper few-wrapper">
+                  <div class="few-wrapper__item row">
+
+                    <span class="few-wrapper__label col-7">
+                      Will we assemble / disassemble any items? 
+                    </span>
+                    <div class="few-wrapper__inputs few-wrapper-inputs col-5 row">
+                      <div class="few-wrapper__input col-6">
+                        <input type="radio" name="is_assembly" id="is_assembly_yes">
+                        <label class="few-wrapper-inputs__label" for="is_assembly_yes">Yes</label>
+                      </div>
+  
+                      <div class="few-wrapper__input col-6">
+                        <input type="radio" name="is_assembly" id="is_assembly_no">
+                        <label class="few-wrapper-inputs__label" for="is_assembly_no">No</label>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+
+                  <div class="few-wrapper__item row">
+
+                    <span class="few-wrapper__label col-7">
+                      Do you have a piano/ safe? 
+                    </span>
+                    <div class="few-wrapper__inputs few-wrapper-inputs col-5 row">
+                      <div class="few-wrapper__input col-6">
+                        <input type="radio" name="is_hav_piano" id="is_hav_piano_yes">
+                        <label class="few-wrapper-inputs__label" for="is_hav_piano_yes">Yes</label>
+                      </div>
+  
+                      <div class="few-wrapper__input col-6">
+                        <input type="radio" name="is_hav_piano" id="is_hav_piano_no">
+                        <label class="few-wrapper-inputs__label" for="is_hav_piano_no">No</label>
+                      </div>
+                    </div>
+
+                  </div>
+                  
+
+                </div>
+              </div>
+
+            </div>
+
+
+            <div class="form-buttons">
+              <button class="form-buttons__back form-buttons__button">
+                Back
+              </button>
+              <a href="#" class="form-buttons__call-request form-buttons__link">
+                Exit / Request a call
+              </a>
+              <button class="form-buttons__next form-buttons__button">
+                Next
+              </button>
+            </div>
+
+          </form>
+
+
+        </section>
+      </div>
+    </div>
+  </main>
+  <script src="{% static '/js/jquery-3.7.1.min.js' %} "></script>
+  <script src="{% static '/js/datetimepicker/picker.js' %} "></script>
+  <script src="{% static '/js/datetimepicker/picker.date.js' %} "></script>
+
+  <script src="{% static '/js/form/index.js' %}"></script>
+  <script src="{% static '/js/form/calc.js' %}"></script>
+</body>
+</html>

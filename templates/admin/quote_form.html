@@ -1,0 +1,9 @@
+ {% extends 'admin/change_form.html' %}
+ {% block object-tools %}
+   <form action="{% url 'quotes:create_pdf' %}?id={{ object_id }}" method="POST">
+     {% csrf_token %}
+
+     <input type="submit" value="Create Pdf" />
+   </form>
+     {{ block.super }}
+ {% endblock %}
