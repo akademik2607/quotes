@@ -1,4 +1,4 @@
-from importlib.resources import _
+from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 
@@ -27,6 +27,11 @@ SERVICES = (
     ('add', 'add')
 )
 
+METHODS = (
+    ('Sea', 'Sea'),
+    ('Air', 'Air')
+)
+
 
 class Currencies(models.Model):
     label = models.CharField(_('Currency label'), max_length=20, **nullable)
@@ -39,12 +44,23 @@ class Currencies(models.Model):
         return self.label
 
 
+class CalculateType(models.Model):
+    label = models.CharField(_('Calculate type label'), max_length=20, **nullable)
+
+    class Meta:
+        verbose_name = _('Calculate type')
+        verbose_name_plural = _('Calculate types')
+
+    def __str__(self):
+        return self.label
+
+
 
 
 class ServiceIncludes(models.Model):
     label = models.CharField(_('Service name'), max_length=125, **nullable)
     is_checked = models.BooleanField('', default=False)
-    quote = models.ForeignKey(_('Quote'), on_delete=models.SET_NULL, related_query_name='quote', **nullable)
+    quote = models.ForeignKey('Quote', on_delete=models.SET_NULL, related_query_name='quote', **nullable)
     service = models.CharField(_('Services'), choices=SERVICES, max_length=25, **nullable)
 
     class Meta:
@@ -58,7 +74,7 @@ class ServiceIncludes(models.Model):
 class ServiceExcludes(models.Model):
     label = models.CharField(_('Service name'), max_length=125, **nullable)
     is_checked = models.BooleanField('', default=False)
-    quote = models.ForeignKey(_('Quote'), on_delete=models.SET_NULL, related_query_name='quote', **nullable)
+    quote = models.ForeignKey('Quote', on_delete=models.SET_NULL, related_query_name='quote', **nullable)
 
     class Meta:
         verbose_name = _('Service item')
@@ -77,7 +93,8 @@ class Services(models.Model):
     buy_price = models.IntegerField(_('Buy price'), **nullable)
     sale_price = models.IntegerField(_('Sale price'), **nullable)
     vat = models.BooleanField(_('Vat'), default=False)
-    quote = models.ForeignKey(_('Quote'), on_delete=models.CASCADE)
+    type = models.ForeignKey(CalculateType, on_delete=models.CASCADE, **nullable)
+    quote = models.ForeignKey('Quote', on_delete=models.CASCADE)
     is_required = models.BooleanField(_('Is required service'), default=False)
 
     class Meta:
@@ -96,11 +113,13 @@ class Quote(models.Model):
     date = models.DateField(_('Date'), **nullable)
     quotation_ref = models.IntegerField(_('Quotation ref'), **nullable)
     quotation_number = models.IntegerField(_('Quotation number'), **nullable)
-    origin = models.CharField(_('Origin'), max_length=125, **nullable)
+    origin_country = models.CharField(_('Origin Country'), max_length=125, **nullable)
+    origin_city = models.CharField(_('Origin City'), max_length=125, **nullable)
     service_type = models.CharField(_('Service type'), choices=SERVICE_TYPES, max_length=125, default=SERVICE_TYPES[0][0], **nullable)
-    method = models.CharField(_('Method'), max_length=125, **nullable)
+    method = models.CharField(_('Method'), choices=METHODS, max_length=125, **nullable)
     volume = models.IntegerField(_('Volume'), **nullable)
-    destination = models.CharField(_('Destination'), max_length=125, **nullable)
+    destination_country = models.CharField(_('Destination Country'), max_length=125, **nullable)
+    destination_city = models.CharField(_('Destination City'), max_length=125, **nullable)
     freight_mode = models.CharField(_('Freight mode'), max_length=125, **nullable)
     transit_time = models.IntegerField(_('Transit time'), **nullable)
     weight_up_to = models.CharField(_('Weight Up to'), max_length=125, **nullable)

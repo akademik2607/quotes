@@ -12,10 +12,22 @@ fieldset.contact-information .form-row>.flex-container > div {
 }
 
 
+fieldset.contact-information .field-origin_country.form-row>.flex-container > div,
+ fieldset.contact-information .field-destination_country.form-row>.flex-container > div{
+    width: 19%;
+}
+
+
+
 fieldset.contact-information .fieldBox p {
     width: 100%;
 }
 
 fieldset.contact-information .fieldBox input {
     width: 100%;
+}
+
+
+fieldset .fieldBox.field-service_type, fieldset .fieldBox.field-method {
+    margin-right: 7px;
 }

@@ -32,8 +32,8 @@ class QuoteAdminModel(admin.ModelAdmin):
             'classes': ('contact-information',),
             'fields': [
                     ('name', 'date', 'quotation_ref', 'quotation_number'),
-                    ('origin', 'service_type', 'method', 'volume'),
-                    ('destination', 'freight_mode', 'transit_time', 'weight_up_to', 'additional_details')
+                    ('origin_country', 'origin_city', 'service_type', 'method', 'volume'),
+                    ('destination_country', 'destination_city', 'freight_mode', 'transit_time', 'weight_up_to', 'additional_details')
                 ]
             }
         ),
