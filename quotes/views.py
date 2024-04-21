@@ -10,9 +10,11 @@ from django.template import loader
 from django.views.decorators.csrf import csrf_exempt
 
 from config.settings import BASE_DIR
-from quotes.models import Quote, SERVICES, ServiceIncludes, ServiceExcludes
+from quotes.models import Quote, SERVICES, ServiceIncludes, ServiceExcludes, Services, Currencies
 
 import pdfkit
+
+
 
 
 
@@ -30,6 +32,11 @@ def create_pdf(request):
     print(destination_services)
 
 
+    origin_service = Services.objects.filter(quote=quote, is_required=True, description__startswith='Origin').first()
+    international_freight_s = Services.objects.filter(quote=quote, is_required=True, description__startswith='International').first()
+    destination_service = Services.objects.filter(quote=quote, is_required=True, description__startswith='Destination').first()
+
+
     pdf_template = loader.render_to_string(
         'EnglishQuote.html',
         context={
@@ -38,12 +45,15 @@ def create_pdf(request):
             'international_freight': international_freight,
             'destination_services': destination_services,
             'services_exclude': services_exclude,
-            'is_not_pdf': False
+            'is_not_pdf': False,
+            'origin_service': origin_service,
+            'international_freight_s': international_freight_s,
+            'destination_service': destination_service
         },
         request=request)
-    html_template = f'media/{quote.name}_{quote.id}_{quote.quotation_number}_pdf_template.html'
-    with open(html_template, "w+", encoding='utf-8') as file:
-        file.write(pdf_template)
+    # html_template = f'media/{quote.name}_{quote.id}_{quote.quotation_number}_pdf_template.html'
+    # with open(html_template, "w+", encoding='utf-8') as file:
+    #     file.write(pdf_template)
 
     # c = WebSite2PDF.Client()
     # with open(f'media/{quote.name}_{quote.id}_{quote.quotation_number}.pdf', "wb+") as file:
@@ -54,26 +64,26 @@ def create_pdf(request):
         pdf_template,
         # 'out.pdf',
         f'media/{quote.name}_{quote.id}_{quote.quotation_number}.pdf',
-        configuration=config,
+        # configuration=config,
         options={"enable-local-file-access": ""}
     )
 
-    # r = requests.post('https://hook.eu1.make.com/r2dalfesh6xpfp8a7as3d2lndo2d5epz',
-    #                   json={
-    #                       'quotation_num': quote.quotation_number,
-    #                        'name': quote.name,
-    #                         'quotation_ref': quote.quotation_ref,
-    #                         'origin_country': quote.origin_country,
-    #                         'origin_city': quote.origin_city,
-    #                         'service_type': quote.service_type,
-    #                         'method': quote.method,
-    #                         'volume': quote.volume,
-    #                         'destination': quote.destination_country,
-    #                         'freight_mode': quote.freight_mode,
-    #                         'transit_time': quote.transit_time,
-    #                         'weight_up_to': quote.weight_up_to,
-    #                         'currency': 'US$'
-    #                       })
+    r = requests.post('https://hook.eu1.make.com/r2dalfesh6xpfp8a7as3d2lndo2d5epz',
+                      json={
+                          'quotation_num': quote.quotation_number,
+                           'name': quote.name,
+                            'quotation_ref': quote.quotation_ref,
+                            'origin_country': quote.origin_country,
+                            'origin_city': quote.origin_city,
+                            'service_type': quote.service_type,
+                            'method': quote.method,
+                            'volume': quote.volume,
+                            'destination': quote.destination_country,
+                            'freight_mode': quote.freight_mode,
+                            'transit_time': quote.transit_time,
+                            'weight_up_to': quote.weight_up_to,
+                            'currency': origin_service.currency
+                          })
 
     return render(request, 'EnglishQuote.html', context={
         'object': quote,
@@ -81,7 +91,10 @@ def create_pdf(request):
         'international_freight': international_freight,
         'destination_services': destination_services,
         'services_exclude': services_exclude,
-        'is_not_pdf': True
+        'is_not_pdf': True,
+        'origin_service': origin_service,
+        'international_freight_s': international_freight_s,
+        'destination_service': destination_service
     })
 
 
@@ -104,6 +117,7 @@ def create_quote_hook(request):
     weight_up_to = data.get('weight_up_to', 'TestWeightUpTo')
     currency = data.get('currency', None)
 
+
     destination_city = data.get('destination_city', None)
     Quote(
         title=name,
@@ -121,3 +135,7 @@ def create_quote_hook(request):
         transit_time=transit_time,
         weight_up_to=weight_up_to
     ).save()
+
+    quote = Quote.objects.latest()
+    base_currency, _ = Currencies.objects.get_or_create(label=currency)
+    Services.object.filter(quote=quote, is_required=True).update(currency=base_currency)
