@@ -14,10 +14,10 @@ nullable = {
 
 
 SERVICE_TYPES = (
-    ('DOOR2DOOR', 'Door to Door'),
-    ('Door2Port', 'Door to Port'),
-    ('Port2Door', 'Port to Door'),
-    ('Port2Port', 'Port to Port'),
+    ('Door to Door', 'Door to Door'),
+    ('Door to Port', 'Door to Port'),
+    ('Port to Door', 'Port to Door'),
+    ('Port to Port', 'Port to Port'),
 )
 
 SERVICES = (
@@ -64,8 +64,8 @@ class ServiceIncludes(models.Model):
     service = models.CharField(_('Services'), choices=SERVICES, max_length=25, **nullable)
 
     class Meta:
-        verbose_name = _('Service item')
-        verbose_name_plural = _('Service items')
+        verbose_name = _('Service inclues')
+        verbose_name_plural = _('Services includes')
 
     def __str__(self):
         return self.label
@@ -77,12 +77,11 @@ class ServiceExcludes(models.Model):
     quote = models.ForeignKey('Quote', on_delete=models.SET_NULL, related_query_name='quote', **nullable)
 
     class Meta:
-        verbose_name = _('Service item')
-        verbose_name_plural = _('Service items')
+        verbose_name = _('Services excludes')
+        verbose_name_plural = _('Services excludes')
 
     def __str__(self):
         return self.label
-
 
 
 class Services(models.Model):
@@ -123,6 +122,8 @@ class Quote(models.Model):
     freight_mode = models.CharField(_('Freight mode'), max_length=125, **nullable)
     transit_time = models.IntegerField(_('Transit time'), **nullable)
     weight_up_to = models.CharField(_('Weight Up to'), max_length=125, **nullable)
+    total_total_sale = models.FloatField(_('Total sale'), **nullable)
+    sum_buy_fields = models.FloatField(_('Sum buy'), **nullable)
 
     class Meta:
         verbose_name = _('Quote')
@@ -136,6 +137,9 @@ class Quote(models.Model):
         if not self.pk:
             is_create = True
         super(Quote, self).save(*args, **kwargs)
+        check_origin = True
+        check_freight = True
+        check_destination = True
 
         if self.service_type == SERVICE_TYPES[0][0]:
             check_origin = True
@@ -207,44 +211,44 @@ class Quote(models.Model):
 
                 ServiceIncludes(
                     label='Payment of international freight charges to arrival terminal',
-                    is_checked=check_origin,
+                    is_checked=check_freight,
                     service=SERVICES[1][0],
                     quote=self
                 ),
 
                 ServiceIncludes(
                     label='Securing customs and clearance',
-                    is_checked=check_origin,
+                    is_checked=check_destination,
                     service=SERVICES[2][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Delivery to residence within 25 miles from a.m. destination',
-                    is_checked=check_origin,
+                    is_checked=check_destination,
                     service=SERVICES[2][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Unwrapping all furniture items',
-                    is_checked=check_origin,
+                    is_checked=check_destination,
                     service=SERVICES[2][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Removal of used packaging materials at time of delivery',
-                    is_checked=check_origin,
+                    is_checked=check_destination,
                     service=SERVICES[2][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Setting up at residence',
-                    is_checked=check_origin,
+                    is_checked=check_destination,
                     service=SERVICES[2][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Basic assembling of furniture (e.g. beds & tables- not IKEA)',
-                    is_checked=check_origin,
+                    is_checked=check_destination,
                     service=SERVICES[2][0],
                     quote=self
                 ),
@@ -320,6 +324,12 @@ class Quote(models.Model):
 
 
             ])
+
+        else:
+            ServiceIncludes.objects.filter(service=SERVICES[0][0], quote=self).update(is_checked=check_origin)
+            ServiceIncludes.objects.filter(service=SERVICES[1][0], quote=self).update(is_checked=check_freight)
+            ServiceIncludes.objects.filter(service=SERVICES[2][0], quote=self).update(is_checked=check_destination)
+
 
 
 

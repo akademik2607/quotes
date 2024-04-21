@@ -1,4 +1,4 @@
-{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,15 +14,7 @@
 
 
 <style>
-    {% if is_not_pdf == True %}
-    body {
-        width: 600px;
-        text-align: ;
-        margin: 0 auto;
-        box-shadow: 0px 1px 1px 1px gray;
-        padding: 0 20px;
-    }
-    {% endif%}
+    
      body, p {
                 font-size: 11px;
             }
@@ -103,15 +95,15 @@
     alt="Logo"
     >
 <p align="right">
-{{ object.date }}
+None
 </p>
 <p >
-Customer: {{ object.name }}
+Customer: TestName1
 </p>
 <br>
 <br>
 <p align="center">
-    <strong>QUOTATION REF:</strong><a name="Text2"></a>  {{ object.quotation_ref }}
+    <strong>QUOTATION REF:</strong><a name="Text2"></a>  42
     <strong>
         /
     </strong>
@@ -232,19 +224,19 @@ Customer: {{ object.name }}
         <strong>PROPOSAL (A)</strong>
     </p>
     <p>
-        <strong>Description:</strong> {{ object.additional_details }}
+        <strong>Description:</strong> None
     </p>
     <table class="custom-table">
         <tbody>
             <tr>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Origin:</strong>{{ object.origin }} <strong></strong>
+                        <strong>Origin:</strong> <strong></strong>
                     </p>
                 </td>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Destination:</strong> {{ object.destination_country }}
+                        <strong>Destination:</strong> TestDestinationCountry
                         <strong>
                         </strong>
                     </p>
@@ -253,12 +245,12 @@ Customer: {{ object.name }}
             <tr>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Method:</strong> {{ object.method }}; ?> <strong></strong>
+                        <strong>Method:</strong> Sea; ?> <strong></strong>
                     </p>
                 </td>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Freight    Mode:</strong> {{ object.freight_mode }}
+                        <strong>Freight    Mode:</strong> LCL
                         <strong></strong>
                     </p>
                 </td>
@@ -266,14 +258,14 @@ Customer: {{ object.name }}
             <tr>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Service    Type:</strong> {{ object.service_type }}
+                        <strong>Service    Type:</strong> DOORTODOOR
                         <strong>
                         </strong>
                     </p>
                 </td>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Transit    Time:</strong>Approximately {{ object.transit_time }}    weeks
+                        <strong>Transit    Time:</strong>Approximately 432    weeks
                         <strong></strong>
                     </p>
                 </td>
@@ -281,12 +273,12 @@ Customer: {{ object.name }}
             <tr>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Volume Up    to:</strong>{{ object.volume }} <strong></strong>
+                        <strong>Volume Up    to:</strong>4 <strong></strong>
                     </p>
                 </td>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Weight Up    to:</strong>{{ object.weight_up_to }} <strong></strong>
+                        <strong>Weight Up    to:</strong> Weight_up_to_YEs <strong></strong>
                     </p>
                 </td>
             </tr>
@@ -302,17 +294,17 @@ Customer: {{ object.name }}
         <tr>
             <td>Origin Services</td>
             <td></td>
-            <td>{{ object.origin_services_sell }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>Freight Rate</td>
             <td></td>
-            <td>{{ object.freight_rate_sell }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>Destination Services</td>
             <td></td>
-            <td>{{ object.service_price_sell }}</td>
+            <td></td>
         </tr>
     </table>
 
@@ -328,7 +320,7 @@ Customer: {{ object.name }}
         <tr>
             <td>Freight Surcharges</td>
             <td></td>
-            <td>{{ object.freight_surcharges_sell }}</td>
+            <td></td>
         </tr>
         <tr>
             <td>Port & Local Fees at Destination</td>
@@ -345,25 +337,47 @@ Customer: {{ object.name }}
         <tr>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;"></td>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;">
-                {% for service in origin_services %}
-                    {{ service.label}}
-                {% endfor %}
+                
+                    Export packing all small goods into cartons
+                
+                    Export wrapping all furniture items including disassembling, if required.
+                
+                    Labeling and creating an inventory of all items
+                
+                    Loading and securing into shipping container
+                
+                    Transfer of container to the port/terminal
+                
+                    Payment of all port/terminal handling fees
+                
+                    Preparation of all export documentation &amp; Export customs clearance
+                
             </td>
         </tr>
         <tr>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;"></td>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;">
-                {% for service in international_freight %}
-                    {{ service.label }}
-                {% endfor %}
+                
+                    Payment of international freight charges to arrival terminal
+                
             </td>
         </tr>
         <tr>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;"></td>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;">
-                {% for service in destination_services %}
-                    {{ service.label }}
-                {% endfor %}
+                
+                    Securing customs and clearance
+                
+                    Delivery to residence within 25 miles from a.m. destination
+                
+                    Unwrapping all furniture items
+                
+                    Removal of used packaging materials at time of delivery
+                
+                    Setting up at residence
+                
+                    Basic assembling of furniture (e.g. beds &amp; tables- not IKEA)
+                
             </td>
         </tr>
         <!-- Add more rows here if needed -->
@@ -378,9 +392,33 @@ Customer: {{ object.name }}
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;"></td>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;">
                 <?php the_field('services_exclude'); ?>
-                {% for service in services_exclude %}
-                    {{ service.label }}
-                {% endfor %}
+                
+                    Insurance coverage (as per below option)
+                
+                    For US Shipments only: ISF Filing $ 45.00
+                
+                    Port, local fees &amp; DO &amp; NVOCC fees at destination, if any.
+                
+                    Customs duty/tax and/or local VAT
+                
+                    Customs inspection and\or Quarantine inspection
+                
+                    Customs inspection and\or Quarantine inspection
+                
+                    Quarantine treatment, i.e. fumigation, steam cleaning
+                
+                    Storage and store handling and/or Demurrage
+                
+                    Delivery above 2nd level
+                
+                    Dis/Assembling of furniture specially IKEA (beside basic furniture e.g.beds &amp; tables)
+                
+                    Bad access with long/step carry (20 m) or shuttle vehicle requirements
+                
+                    Heavy items handling (Piano/ Safe)
+                
+                    Parking permits, lift fees
+                
                 </td>
         </tr>
     </table>
@@ -976,15 +1014,15 @@ Customer: {{ object.name }}
 <!--    vspace="8"-->
 <!--    >-->
 <p align="right">
-{{ object.date }}
+None
 </p>
 <p >
-Customer: {{ object.name }}
+Customer: TestName1
 </p>
 <br>
 <br>
 <p align="center">
-    <strong>QUOTATION REF:</strong><a name="Text2"></a>  {{ object.quotation_ref }}
+    <strong>QUOTATION REF:</strong><a name="Text2"></a>  42
     <strong>
         /
     </strong>
@@ -1102,19 +1140,19 @@ Customer: {{ object.name }}
         <strong>PROPOSAL (A)</strong>
     </p>
     <p>
-        <strong>Description:</strong> {{ object.additional_details }}
+        <strong>Description:</strong> None
     </p>
     <table class="custom-table">
         <tbody>
             <tr>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Origin:</strong>{{ object.origin_country }}<strong></strong>
+                        <strong>Origin:</strong>TestCountryOrigin<strong></strong>
                     </p>
                 </td>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Destination:</strong>{{ objcect.destination_country }}
+                        <strong>Destination:</strong>
                         <strong>
                         </strong>
                     </p>
@@ -1123,12 +1161,12 @@ Customer: {{ object.name }}
             <tr>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Method:</strong>{{ object.method }} <strong></strong>
+                        <strong>Method:</strong>Sea <strong></strong>
                     </p>
                 </td>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Freight    Mode:</strong>{{ object.freight_mode }}
+                        <strong>Freight    Mode:</strong>LCL
                         <strong></strong>
                     </p>
                 </td>
@@ -1136,14 +1174,14 @@ Customer: {{ object.name }}
             <tr>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Service    Type:</strong>{{ object.service_type }}
+                        <strong>Service    Type:</strong>DOORTODOOR
                         <strong>
                         </strong>
                     </p>
                 </td>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Transit    Time:</strong>Approximately {{ object.transit_time }}    weeks
+                        <strong>Transit    Time:</strong>Approximately 432    weeks
                         <strong></strong>
                     </p>
                 </td>
@@ -1151,12 +1189,12 @@ Customer: {{ object.name }}
             <tr>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Volume Up    to:</strong>{{ object.volume }} <strong></strong>
+                        <strong>Volume Up    to:</strong>4 <strong></strong>
                     </p>
                 </td>
                 <td width="349" valign="top">
                     <p>
-                        <strong>Weight Up    to:</strong>{{ object.weight_up_to }} <strong></strong>
+                        <strong>Weight Up    to:</strong> Weight_up_to_YEs <strong></strong>
                     </p>
                 </td>
             </tr>
@@ -1182,7 +1220,7 @@ Customer: {{ object.name }}
         <tr>
             <td>Destination Services</td>
             <td></td>
-            <td>{{ object.service_price_sell }}</td>
+            <td></td>
         </tr>
     </table>
 
@@ -1215,25 +1253,47 @@ Customer: {{ object.name }}
         <tr>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;"></td>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;">
-                {% for service in origin_services %}
-                    {{ service.label}}
-                {% endfor %}
+                
+                    Export packing all small goods into cartons
+                
+                    Export wrapping all furniture items including disassembling, if required.
+                
+                    Labeling and creating an inventory of all items
+                
+                    Loading and securing into shipping container
+                
+                    Transfer of container to the port/terminal
+                
+                    Payment of all port/terminal handling fees
+                
+                    Preparation of all export documentation &amp; Export customs clearance
+                
             </td>
         </tr>
         <tr>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;"></td>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;">
-                {% for service in international_freight %}
-                    {{ service.label }}
-                {% endfor %}
+                
+                    Payment of international freight charges to arrival terminal
+                
             </td>
         </tr>
         <tr>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;"></td>
             <td style="border: 1px solid #FFFFFF; text-align: left; background-color: #FFFFFF;">
-                {% for service in destination_services %}
-                    {{ service.label }}
-                {% endfor %}
+                
+                    Securing customs and clearance
+                
+                    Delivery to residence within 25 miles from a.m. destination
+                
+                    Unwrapping all furniture items
+                
+                    Removal of used packaging materials at time of delivery
+                
+                    Setting up at residence
+                
+                    Basic assembling of furniture (e.g. beds &amp; tables- not IKEA)
+                
             </td>
         </tr>
         <!-- Add more rows here if needed -->
