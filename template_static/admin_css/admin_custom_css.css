@@ -31,3 +31,35 @@ fieldset.contact-information .fieldBox input {
 fieldset .fieldBox.field-service_type, fieldset .fieldBox.field-method {
     margin-right: 7px;
 }
+
+
+input[name="_addanother"]{
+    display: none;
+}
+
+.has_original.dynamic-serviceincludes_set select,.has_original.dynamic-serviceexcludes_set select{
+    pointer-events: none;
+}
+
+a.create-pdf__button {
+    background: var(--button-bg);
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  color: var(--button-fg);
+  cursor: pointer;
+  transition: background 0.15s;
+  color: var(--button-fg);
+  display: inline-block;
+  text-decoration: none !important;
+}
+a.create-pdf__button:visited {
+    color: var(--button-fg);
+     text-decoration: none;
+}
+
+a.create-pdf__button:hover {
+    color: var(--button-fg);
+    background: var(--button-hover-bg);
+     text-decoration: none;
+}

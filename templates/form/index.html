@@ -62,8 +62,9 @@
         <section class="form-section">
           <form class="form" action="">
 
+            <input type="hidden" name="user_id">
             <div class="form__content">
-              <div class="form__when when form__step" data-step="1">
+              <div class="form__when when form__step current" data-step="1">
                 <h3 class="form__title">When will You move?</h3>
 
                 <div class="when__wrapper">
@@ -73,7 +74,11 @@
                         <div class="input-box__wrapper has-chevron">
                           <select name="service" id="service" class="when-service__select input-box__field">
                             <option value="" disabled selected hidden>Choose service</option>
-                            <option value=""></option>
+                            <option value="Door to Door">Door to Door</option>
+                            <option value="Door to Port">Door to Port</option>
+                            <option value="Port to Door">Port to Door</option>
+                            <option value="Port to Port">Port to Port</option>
+
                           </select>
                         </div>
                     </div>
@@ -197,155 +202,155 @@
               <div class="form__calc calc form__step" data-step="5">
                 <h3 class="form__title">What are you moving?</h3>
 
-                <div class="calc__wrapper">
+                <div class="calc__wrapper" id="calc">
 
-                  <input type="text" class="calc__search" placeholder="Search">
-                  <div class="calc__container calc-container">
-                    <div class="calc__category calc-category">
-                      <button class="calc-category__button calc-category__top-button">
-                        <img src="{% static '/img/arrow-red.svg' %}" alt="arrow-top">
-                      </button>
-                      <ul class="calc-category__list">
-                        <li class="calc-category__item">
-                          <input type="radio" id="calc-category__1" name="calc-category" class="calc-category__input" value="1">
-                          <label for="calc-category__1" class="calc-category__label">
-                            <img src="{% static '/img/calc-category/icon-1.svg' %}" alt="" class="calc-category__img">
-                            <img src="{% static '/img/calc-category/icon-1-hover.svg' %}" alt="" class="calc-category__img-hover">
-                          </label>
-                        </li>
-                        <li class="calc-category__item">
-                          <input type="radio" id="calc-category__2" name="calc-category" class="calc-category__input" value="2">
-                          <label for="calc-category__2" class="calc-category__label">
-                            <img src="" alt="" class="calc-category__img">
-                            <img src="" alt="" class="calc-category__img-hover">
-                          </label>
-                        </li>
-                        <li class="calc-category__item">
-                          <input type="radio" id="calc-category__3" name="calc-category" class="calc-category__input" value="3">
-                          <label for="calc-category__3" class="calc-category__label">
-                            <img src="" alt="" class="calc-category__img">
-                            <img src="" alt="" class="calc-category__img-hover">
-                          </label>
-                        </li>
-                        <li class="calc-category__item">
-                          <input type="radio" id="calc-category__4" name="calc-category" class="calc-category__input" value="4">
-                          <label for="calc-category__4" class="calc-category__label">
-                            <img src="" alt="" class="calc-category__img">
-                            <img src="" alt="" class="calc-category__img-hover">
-                          </label>
-                        </li>
-                        <li class="calc-category__item">
-                          <input type="radio" id="calc-category__5" name="calc-category" class="calc-category__input" value="5">
-                          <label for="calc-category__5" class="calc-category__label">
-                            <img src="" alt="" class="calc-category__img">
-                            <img src="" alt="" class="calc-category__img-hover">
-                          </label>
-                        </li>
-                      </ul>
-                      <button class="calc-category__button calc-category__bottom-button">
-                        <img src="{% static '/img/arrow-red.svg' %}" alt="arrow-top">
-                      </button>
-                    </div>
+<!--                  <input type="text" class="calc__search" placeholder="Search">-->
+<!--                  <div class="calc__container calc-container">-->
+<!--                    <div class="calc__category calc-category">-->
+<!--                      <button class="calc-category__button calc-category__top-button">-->
+<!--                        <img src="{% static '/img/arrow-red.svg' %}" alt="arrow-top">-->
+<!--                      </button>-->
+<!--                      <ul class="calc-category__list">-->
+<!--                        <li class="calc-category__item">-->
+<!--                          <input type="radio" id="calc-category__1" name="calc-category" class="calc-category__input" value="1">-->
+<!--                          <label for="calc-category__1" class="calc-category__label">-->
+<!--                            <img src="{% static '/img/calc-category/icon-1.svg' %}" alt="" class="calc-category__img">-->
+<!--                            <img src="{% static '/img/calc-category/icon-1-hover.svg' %}" alt="" class="calc-category__img-hover">-->
+<!--                          </label>-->
+<!--                        </li>-->
+<!--                        <li class="calc-category__item">-->
+<!--                          <input type="radio" id="calc-category__2" name="calc-category" class="calc-category__input" value="2">-->
+<!--                          <label for="calc-category__2" class="calc-category__label">-->
+<!--                            <img src="" alt="" class="calc-category__img">-->
+<!--                            <img src="" alt="" class="calc-category__img-hover">-->
+<!--                          </label>-->
+<!--                        </li>-->
+<!--                        <li class="calc-category__item">-->
+<!--                          <input type="radio" id="calc-category__3" name="calc-category" class="calc-category__input" value="3">-->
+<!--                          <label for="calc-category__3" class="calc-category__label">-->
+<!--                            <img src="" alt="" class="calc-category__img">-->
+<!--                            <img src="" alt="" class="calc-category__img-hover">-->
+<!--                          </label>-->
+<!--                        </li>-->
+<!--                        <li class="calc-category__item">-->
+<!--                          <input type="radio" id="calc-category__4" name="calc-category" class="calc-category__input" value="4">-->
+<!--                          <label for="calc-category__4" class="calc-category__label">-->
+<!--                            <img src="" alt="" class="calc-category__img">-->
+<!--                            <img src="" alt="" class="calc-category__img-hover">-->
+<!--                          </label>-->
+<!--                        </li>-->
+<!--                        <li class="calc-category__item">-->
+<!--                          <input type="radio" id="calc-category__5" name="calc-category" class="calc-category__input" value="5">-->
+<!--                          <label for="calc-category__5" class="calc-category__label">-->
+<!--                            <img src="" alt="" class="calc-category__img">-->
+<!--                            <img src="" alt="" class="calc-category__img-hover">-->
+<!--                          </label>-->
+<!--                        </li>-->
+<!--                      </ul>-->
+<!--                      <button class="calc-category__button calc-category__bottom-button">-->
+<!--                        <img src="{% static '/img/arrow-red.svg' %}" alt="arrow-top">-->
+<!--                      </button>-->
+<!--                    </div>-->
 
-                    <div class="calc__content calc-content">
-                      <div class="calc-content__wrapper">
-                        <div class="calc-content__category" data-item="1">
-                          <div class="calc-content__top">
-                            <h4 class="calc-content__title"><img src="" alt=""></h4>
-                            <button class="calc-content__button">Didn't find an item?</button>
-                          </div>
-                          <div class="calc-content__columns calc-content-columns">
-                            <ul class="calc-content-columns__titles row justify-content-between">
-                              <li class="calc-content-columns__title col-5">Item</li>
-                              <li class="calc-content-columns__title col-3">Item’s Volume</li>
-                              <li class="calc-content-columns__title col-3">Amount</li>
-                            </ul>
-                          </div>
-                          <ul class="calc-content__list">
-                            <li class="calc-content__item calc-content-item row justify-content-between">
-                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
-                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
-                              <div class="calc-content-item__count col-3">
-                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
-                                <span class="calc-conten-item__input" data-value="0"> 0</span>
-                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
-                              </div>
-                            </li>
-  
-                            <li class="calc-content__item calc-content-item row justify-content-between">
-                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
-                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
-                              <div class="calc-content-item__count col-3">
-                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
-                                <span class="calc-conten-item__input" data-value="0">0</span>
-                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
-                              </div>
-                            </li>
-  
-                            <li class="calc-content__item calc-content-item row justify-content-between">
-                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
-                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
-                              <div class="calc-content-item__count col-3">
-                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
-                                <span class="calc-conten-item__input" data-value="0">0</span>
-                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
-                              </div>
-                            </li>
-  
-                            <li class="calc-content__item calc-content-item row justify-content-between">
-                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
-                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
-                              <div class="calc-content-item__count col-3">
-                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
-                                <span class="calc-conten-item__input" data-value="0">0</span>
-                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
-                              </div>
-                            </li>
-  
-                            <li class="calc-content__item calc-content-item row justify-content-between">
-                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
-                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
-                              <div class="calc-content-item__count col-3">
-                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
-                                <span class="calc-conten-item__input" data-value="0">0</span>
-                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
-                              </div>
-                            </li>
-  
-                            <li class="calc-content__item calc-content-item row justify-content-between">
-                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
-                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
-                              <div class="calc-content-item__count col-3">
-                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
-                                <span class="calc-conten-item__input" data-value="0">0</span>
-                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
-                              </div>
-                            </li>
-  
-                            <li class="calc-content__item calc-content-item row justify-content-between">
-                              <span class="calc-content-item__text col-5">Armchair Armchair</span>
-                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>
-                              <div class="calc-content-item__count col-3">
-                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>
-                                <span class="calc-conten-item__input" data-value="0">0</span>
-                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>
-                              </div>
-                            </li>
-                          </ul>
-  
-                        </div>
-                      </div>
-                      
-                      <input type="text" class="calc-content__result" disabled>
-                    </div>
-                  </div>
+<!--                    <div class="calc__content calc-content">-->
+<!--                      <div class="calc-content__wrapper">-->
+<!--                        <div class="calc-content__category" data-item="1">-->
+<!--                          <div class="calc-content__top">-->
+<!--                            <h4 class="calc-content__title"><img src="" alt=""></h4>-->
+<!--                            <button class="calc-content__button">Didn't find an item?</button>-->
+<!--                          </div>-->
+<!--                          <div class="calc-content__columns calc-content-columns">-->
+<!--                            <ul class="calc-content-columns__titles row justify-content-between">-->
+<!--                              <li class="calc-content-columns__title col-5">Item</li>-->
+<!--                              <li class="calc-content-columns__title col-3">Item’s Volume</li>-->
+<!--                              <li class="calc-content-columns__title col-3">Amount</li>-->
+<!--                            </ul>-->
+<!--                          </div>-->
+<!--                          <ul class="calc-content__list">-->
+<!--                            <li class="calc-content__item calc-content-item row justify-content-between">-->
+<!--                              <span class="calc-content-item__text col-5">Armchair Armchair</span>-->
+<!--                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>-->
+<!--                              <div class="calc-content-item__count col-3">-->
+<!--                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>-->
+<!--                                <span class="calc-conten-item__input" data-value="0"> 0</span>-->
+<!--                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>-->
+<!--                              </div>-->
+<!--                            </li>-->
+<!--  -->
+<!--                            <li class="calc-content__item calc-content-item row justify-content-between">-->
+<!--                              <span class="calc-content-item__text col-5">Armchair Armchair</span>-->
+<!--                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>-->
+<!--                              <div class="calc-content-item__count col-3">-->
+<!--                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>-->
+<!--                                <span class="calc-conten-item__input" data-value="0">0</span>-->
+<!--                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>-->
+<!--                              </div>-->
+<!--                            </li>-->
+<!--  -->
+<!--                            <li class="calc-content__item calc-content-item row justify-content-between">-->
+<!--                              <span class="calc-content-item__text col-5">Armchair Armchair</span>-->
+<!--                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>-->
+<!--                              <div class="calc-content-item__count col-3">-->
+<!--                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>-->
+<!--                                <span class="calc-conten-item__input" data-value="0">0</span>-->
+<!--                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>-->
+<!--                              </div>-->
+<!--                            </li>-->
+<!--  -->
+<!--                            <li class="calc-content__item calc-content-item row justify-content-between">-->
+<!--                              <span class="calc-content-item__text col-5">Armchair Armchair</span>-->
+<!--                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>-->
+<!--                              <div class="calc-content-item__count col-3">-->
+<!--                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>-->
+<!--                                <span class="calc-conten-item__input" data-value="0">0</span>-->
+<!--                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>-->
+<!--                              </div>-->
+<!--                            </li>-->
+<!--  -->
+<!--                            <li class="calc-content__item calc-content-item row justify-content-between">-->
+<!--                              <span class="calc-content-item__text col-5">Armchair Armchair</span>-->
+<!--                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>-->
+<!--                              <div class="calc-content-item__count col-3">-->
+<!--                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>-->
+<!--                                <span class="calc-conten-item__input" data-value="0">0</span>-->
+<!--                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>-->
+<!--                              </div>-->
+<!--                            </li>-->
+<!--  -->
+<!--                            <li class="calc-content__item calc-content-item row justify-content-between">-->
+<!--                              <span class="calc-content-item__text col-5">Armchair Armchair</span>-->
+<!--                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>-->
+<!--                              <div class="calc-content-item__count col-3">-->
+<!--                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>-->
+<!--                                <span class="calc-conten-item__input" data-value="0">0</span>-->
+<!--                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>-->
+<!--                              </div>-->
+<!--                            </li>-->
+<!--  -->
+<!--                            <li class="calc-content__item calc-content-item row justify-content-between">-->
+<!--                              <span class="calc-content-item__text col-5">Armchair Armchair</span>-->
+<!--                              <span class="calc-content-item__volume col-3" data-value="0.45">0.45</span>-->
+<!--                              <div class="calc-content-item__count col-3">-->
+<!--                                <button class="calc-content-item__button calc-content-item__minus"><img src="{% static '/img/minus.svg' %}" alt="minus"></button>-->
+<!--                                <span class="calc-conten-item__input" data-value="0">0</span>-->
+<!--                                <button class="calc-content-item__button calc-content-item__plus"><img src="{% static '/img/plus.svg' %}" alt="plus"></button>-->
+<!--                              </div>-->
+<!--                            </li>-->
+<!--                          </ul>-->
+<!--  -->
+<!--                        </div>-->
+<!--                      </div>-->
+<!--                      -->
+<!--                      <input type="text" name="calc-result" class="calc-content__result" disabled>-->
+<!--                    </div>-->
+<!--                  </div>-->
 
                 </div>
               </div>
 
 
 
-              <div class="form__few few form__step current" data-step="6">
+              <div class="form__few few form__step" data-step="6">
                 <h3 class="form__title">Few more questions</h3>
 
                 <div class="few__wrapper few-wrapper">
@@ -356,12 +361,12 @@
                     </span>
                     <div class="few-wrapper__inputs few-wrapper-inputs col-5 row">
                       <div class="few-wrapper__input col-6">
-                        <input type="radio" name="is_assembly" id="is_assembly_yes">
+                        <input type="radio" name="is_assembly" id="is_assembly_yes" value="Yes">
                         <label class="few-wrapper-inputs__label" for="is_assembly_yes">Yes</label>
                       </div>
   
                       <div class="few-wrapper__input col-6">
-                        <input type="radio" name="is_assembly" id="is_assembly_no">
+                        <input type="radio" name="is_assembly" id="is_assembly_no" value="No">
                         <label class="few-wrapper-inputs__label" for="is_assembly_no">No</label>
                       </div>
                     </div>
@@ -377,12 +382,12 @@
                     </span>
                     <div class="few-wrapper__inputs few-wrapper-inputs col-5 row">
                       <div class="few-wrapper__input col-6">
-                        <input type="radio" name="is_hav_piano" id="is_hav_piano_yes">
+                        <input type="radio" name="have_piano" id="is_hav_piano_yes">
                         <label class="few-wrapper-inputs__label" for="is_hav_piano_yes">Yes</label>
                       </div>
   
                       <div class="few-wrapper__input col-6">
-                        <input type="radio" name="is_hav_piano" id="is_hav_piano_no">
+                        <input type="radio" name="have_piano" id="is_hav_piano_no">
                         <label class="few-wrapper-inputs__label" for="is_hav_piano_no">No</label>
                       </div>
                     </div>
@@ -398,27 +403,27 @@
                     <div class="few-wrapper__inputs few-wrapper-inputs col-5 row justify-content-between">
                       <div class="few-wrapper__input col-2">
                         <input type="radio" name="how_many_people" id="how_many_people_1">
-                        <label class="few-wrapper-inputs__label" for="how_many_people_1">1</label>
+                        <label  class="few-wrapper-inputs__label" for="how_many_people_1">1</label>
                       </div>
   
                       <div class="few-wrapper__input col-2">
                         <input type="radio" name="how_many_people" id="how_many_people_2">
-                        <label class="few-wrapper-inputs__label" for="how_many_people_2">2</label>
+                        <label  class="few-wrapper-inputs__label" for="how_many_people_2">2</label>
                       </div>
 
                       <div class="few-wrapper__input col-2">
-                        <input type="radio" name="how_many_people" id="how_many_people_1">
-                        <label class="few-wrapper-inputs__label" for="how_many_people_1">3</label>
+                        <input type="radio" name="how_many_people" id="how_many_people_3">
+                        <label class="few-wrapper-inputs__label" for="how_many_people_3">3</label>
                       </div>
   
                       <div class="few-wrapper__input col-2">
-                        <input type="radio" name="how_many_people" id="how_many_people_2">
-                        <label class="few-wrapper-inputs__label" for="how_many_people_2">4</label>
+                        <input type="radio" name="how_many_people" id="how_many_people_4">
+                        <label class="few-wrapper-inputs__label" for="how_many_people_4">4</label>
                       </div>
 
                       <div class="few-wrapper__input col-2">
-                        <input type="radio" name="how_many_people" id="how_many_people_2">
-                        <label class="few-wrapper-inputs__label" for="how_many_people_2">5</label>
+                        <input type="radio" name="how_many_people" id="how_many_people_5">
+                        <label class="few-wrapper-inputs__label" for="how_many_people_5">5</label>
                       </div>
                     </div>
 
@@ -429,6 +434,86 @@
               </div>
 
             </div>
+
+
+            <div class="form__pers pers form__step" data-step="7">
+              <h3 class="form__title">Personal Information</h3>
+
+              <div class="pers__wrapper">
+                <div class="input-group">
+                  <div class="input-box pers__firstname pers-firstname">
+                    <label for="pers-firstname" class="pers-firstname__label">Firstname <span class="required-star">*</span></label>
+                      <div class="input-box__wrapper">
+                        <input type="text" name="firstname" id="pers-firstname"  class="pers-firstname__input input-box__field" placeholder="pers-firstname">
+                      </div>
+                  </div>
+                  <div class="input-box pers__lastname pers-lastname">
+                    <label for="pers-lastname" class="pers-lastname__label">Lastname <span class="required-star">*</span></label>
+                      <div class="input-box__wrapper">
+                        <input type="text" name="lastname" id="pers-lastname"  class="pers-lastname__input input-box__field" placeholder="pers-lastname">
+                      </div>
+                  </div>
+                </div>
+                <div class="input-group">
+                  <div class="input-box pers__email pers-email">
+                    <label for="pers-email" class="pers-email__label">Email</label>
+                      <div class="input-box__wrapper">
+                        <input type="text" name="email" id="pers-email"  class="pers-email__input input-box__field" placeholder="pers-email">
+                      </div>
+                  </div>
+                  <div class="input-box pers__phone pers-phone">
+                    <label for="pers-phone" class="from-city__label">Phone <span class="required-star">*</span></label>
+                      <div class="input-box__wrapper">
+                        <input type="text" name="phone" id="pers-phone"  class="pers-phone__input input-box__field" placeholder="pers-phone">
+                      </div>
+                  </div>
+                </div>
+
+                <div class="input-group">
+                  <div class="input-box pers__email pers-email">
+                    <!-- <label for="pers-email" class="pers-email__label">Address</label> -->
+                      <div class="input-box__wrapper">
+                        <input type="radio" name="is_private" id="is_private_yes" value="Yes" class="pers-email__input input-box__field" placeholder="pers-email">
+                      </div>
+                  </div>
+                  <div class="input-box pers__phone pers-phone">
+                    <!-- <label for="pers-phone" class="from-city__label">City <span class="required-star">*</span></label> -->
+                      <div class="input-box__wrapper">
+                        <input type="radio" name="is_private" id=""  value="No" class="pers-phone__input input-box__field" placeholder="pers-phone">
+                      </div>
+                  </div>
+                  <textarea name="anything" placeholder="anything"></textarea>
+                </div>
+                
+              </div>
+            </div>
+
+
+<!--              <div class="form__to to form__step" data-step="3">-->
+<!--                <h3 class="form__title">Moving To</h3>-->
+
+<!--                <div class="to__wrapper">-->
+
+<!--                  <div class="input-group">-->
+<!--                    <div class="input-box to__country to-country">-->
+<!--                      <label for="to-country" class="to-country__label">Choose country <span class="required-star">*</span></label>-->
+<!--                        <div class="input-box__wrapper has-chevron">-->
+<!--                          <select name="to-country" id="to-country" class="to-country__select input-box__field">-->
+<!--                            <option value="" disabled selected hidden>Choose country</option>-->
+<!--                            <option value=""></option>-->
+<!--                          </select>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                    <div class="input-box to__city to-city">-->
+<!--                      <label for="to-city" class="to-city__label">City <span class="required-star">*</span></label>-->
+<!--                        <div class="input-box__wrapper">-->
+<!--                          <input type="text" name="to-city" id="to-city"  class="to-city__input input-box__field" placeholder="Choose City">-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                  </div>-->
+
+<!--              </div>-->
+<!--            </div>-->
 
 
             <div class="form-buttons">
@@ -455,6 +540,7 @@
   <script src="{% static '/js/datetimepicker/picker.date.js' %} "></script>
 
   <script src="{% static '/js/form/index.js' %}"></script>
-  <script src="{% static '/js/form/calc.js' %}"></script>
+<!--  <script src="{% static '/js/form/calc.js' %}"></script>-->
+  <script src="{% static '/js/calc/main.js' %}"></script>
 </body>
 </html>

@@ -1,36 +1,12 @@
+from .appconstants import SERVICES, nullable, METHODS, SERVICE_TYPES, FREIGHT_MODES
+
 from django.utils.translation import gettext_lazy as _
 
 from django.db import models
 
-TransportTypes = (
-    ('TR', 'tractor'),
-    ('CA', 'car')
-)
-
-nullable = {
-    'null': True,
-    'blank': True
-}
+from tools.functions import get_show_perms
 
 
-SERVICE_TYPES = (
-    ('Door to Door', 'Door to Door'),
-    ('Door to Port', 'Door to Port'),
-    ('Port to Door', 'Port to Door'),
-    ('Port to Port', 'Port to Port'),
-)
-
-SERVICES = (
-    ('origin_services', 'Origin Services'),
-    ('international_freight', 'International Freight'),
-    ('destination_services', 'Destination Services'),
-    ('add', 'add')
-)
-
-METHODS = (
-    ('Sea', 'Sea'),
-    ('Air', 'Air')
-)
 
 
 class Currencies(models.Model):
@@ -53,8 +29,6 @@ class CalculateType(models.Model):
 
     def __str__(self):
         return self.label
-
-
 
 
 class ServiceIncludes(models.Model):
@@ -107,23 +81,26 @@ class Services(models.Model):
 class Quote(models.Model):
     title = models.CharField(_('Title'), max_length=125, **nullable)
 
+    item_id = models.CharField(_('Item id'), max_length=25, **nullable)
     additional_details = models.CharField(_('Additional details'), max_length=300, **nullable)
     name = models.CharField(_('Name'), max_length=125, **nullable)
     date = models.DateField(_('Date'), **nullable)
     quotation_ref = models.IntegerField(_('Quotation ref'), **nullable)
-    quotation_number = models.IntegerField(_('Quotation number'), **nullable)
+    quotation_number = models.CharField(_('Quotation number'), max_length=25, **nullable)
     origin_country = models.CharField(_('Origin Country'), max_length=125, **nullable)
     origin_city = models.CharField(_('Origin City'), max_length=125, **nullable)
     service_type = models.CharField(_('Service type'), choices=SERVICE_TYPES, max_length=125, default=SERVICE_TYPES[0][0], **nullable)
     method = models.CharField(_('Method'), choices=METHODS, max_length=125, **nullable)
-    volume = models.IntegerField(_('Volume'), **nullable)
+    volume = models.FloatField(_('Volume'), **nullable)
     destination_country = models.CharField(_('Destination Country'), max_length=125, **nullable)
     destination_city = models.CharField(_('Destination City'), max_length=125, **nullable)
-    freight_mode = models.CharField(_('Freight mode'), max_length=125, **nullable)
-    transit_time = models.IntegerField(_('Transit time'), **nullable)
+    freight_mode = models.CharField(_('Freight mode'), choices=FREIGHT_MODES, max_length=125, **nullable)
+    transit_time = models.CharField(_('Transit time'), max_length=25, **nullable)
     weight_up_to = models.CharField(_('Weight Up to'), max_length=125, **nullable)
     total_total_sale = models.FloatField(_('Total sale'), **nullable)
     sum_buy_fields = models.FloatField(_('Sum buy'), **nullable)
+    currency = models.ForeignKey(Currencies, verbose_name=_('Currencies'), related_name='currency',
+                                 on_delete=models.SET_NULL, **nullable)
 
     class Meta:
         verbose_name = _('Quote')
@@ -137,118 +114,102 @@ class Quote(models.Model):
         if not self.pk:
             is_create = True
         super(Quote, self).save(*args, **kwargs)
-        check_origin = True
-        check_freight = True
-        check_destination = True
-
-        if self.service_type == SERVICE_TYPES[0][0]:
-            check_origin = True
-            check_freight = True
-            check_destination = True
-        elif self.service_type == SERVICE_TYPES[1][0]:
-            check_origin = True
-            check_freight = True
-            check_destination = False
-        elif self.service_type == SERVICE_TYPES[2][0]:
-            check_origin = False
-            check_freight = True
-            check_destination = True
-        elif self.service_type == SERVICE_TYPES[3][0]:
-            check_origin = False
-            check_freight = True
-            check_destination = False
+        show_service_perms = get_show_perms(self.service_type)
 
         if is_create:
             Services.objects.bulk_create([
                 Services(description='Origin service', quote=self, is_required=True),
                 Services(description='International freight', quote=self, is_required=True),
-                Services(description='Destination Services', quote=self, is_required=True)
+                Services(description='Destination Services', quote=self, is_required=True),
+
+                Services(description='Freight Surcharges', quote=self, is_required=True),
+                Services(description='Port & local fees at destination', quote=self, is_required=True),
             ])
 
             ServiceIncludes.objects.bulk_create([
                 ServiceIncludes(
                     label='Export packing all small goods into cartons',
-                    is_checked=check_origin,
+                    is_checked=show_service_perms['check_origin'],
                     service=SERVICES[0][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Export wrapping all furniture items including disassembling, if required.',
-                    is_checked=check_origin,
+                    is_checked=show_service_perms['check_origin'],
                     service=SERVICES[0][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Labeling and creating an inventory of all items',
-                    is_checked=check_origin,
+                    is_checked=show_service_perms['check_origin'],
                     service=SERVICES[0][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Loading and securing into shipping container',
-                    is_checked=check_origin,
+                    is_checked=show_service_perms['check_origin'],
                     service=SERVICES[0][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Transfer of container to the port/terminal',
-                    is_checked=check_origin,
+                    is_checked=show_service_perms['check_origin'],
                     service=SERVICES[0][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Payment of all port/terminal handling fees',
-                    is_checked=check_origin,
+                    is_checked=show_service_perms['check_origin'],
                     service=SERVICES[0][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Preparation of all export documentation & Export customs clearance',
-                    is_checked=check_origin,
+                    is_checked=show_service_perms['check_origin'],
                     service=SERVICES[0][0],
                     quote=self
                 ),
 
                 ServiceIncludes(
                     label='Payment of international freight charges to arrival terminal',
-                    is_checked=check_freight,
+                    is_checked=show_service_perms['check_freight'],
                     service=SERVICES[1][0],
                     quote=self
                 ),
 
                 ServiceIncludes(
                     label='Securing customs and clearance',
-                    is_checked=check_destination,
+                    is_checked=show_service_perms['check_destination'],
                     service=SERVICES[2][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Delivery to residence within 25 miles from a.m. destination',
-                    is_checked=check_destination,
+                    is_checked=show_service_perms['check_destination'],
                     service=SERVICES[2][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Unwrapping all furniture items',
-                    is_checked=check_destination,
+                    is_checked=show_service_perms['check_destination'],
                     service=SERVICES[2][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Removal of used packaging materials at time of delivery',
-                    is_checked=check_destination,
+                    is_checked=show_service_perms['check_destination'],
                     service=SERVICES[2][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Setting up at residence',
-                    is_checked=check_destination,
+                    is_checked=show_service_perms['check_destination'],
                     service=SERVICES[2][0],
                     quote=self
                 ),
                 ServiceIncludes(
                     label='Basic assembling of furniture (e.g. beds & tables- not IKEA)',
-                    is_checked=check_destination,
+                    is_checked=show_service_perms['check_destination'],
                     service=SERVICES[2][0],
                     quote=self
                 ),
@@ -326,9 +287,9 @@ class Quote(models.Model):
             ])
 
         else:
-            ServiceIncludes.objects.filter(service=SERVICES[0][0], quote=self).update(is_checked=check_origin)
-            ServiceIncludes.objects.filter(service=SERVICES[1][0], quote=self).update(is_checked=check_freight)
-            ServiceIncludes.objects.filter(service=SERVICES[2][0], quote=self).update(is_checked=check_destination)
+            ServiceIncludes.objects.filter(service=SERVICES[0][0], quote=self).update(is_checked=show_service_perms['check_origin'])
+            ServiceIncludes.objects.filter(service=SERVICES[1][0], quote=self).update(is_checked=show_service_perms['check_freight'])
+            ServiceIncludes.objects.filter(service=SERVICES[2][0], quote=self).update(is_checked=show_service_perms['check_destination'])
 
 
 

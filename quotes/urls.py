@@ -24,6 +24,7 @@ from quotes import views
 
 app_name = 'quotes'
 urlpatterns = [
+    path('download/<str:slug>', views.download_pdf, name='download_pdf'),
     path('create-quote/', views.create_quote_hook),
     path('', views.create_pdf, name='create_pdf')
 ]

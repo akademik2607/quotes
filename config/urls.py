@@ -24,7 +24,7 @@ from config.settings import DEBUG, STATIC_URL, STATIC_ROOT, MEDIA_URL, MEDIA_ROO
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('form/', include('form.urls')),
-    path('quotes/', include('quotes.urls'))
+    path('quotes/', include('quotes.urls')),
     # re_path(r'^_nested_admin/', include('nested_admin.urls'))
 ]
 

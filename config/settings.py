@@ -23,12 +23,14 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY')
+#SECRET_KEY = os.getenv('SECRET_KEY')
+SECRET_KEY = 'django-insecure-jxez1c7xe1r@nu7xw!p5rssv5*+j43uox%(1#6=bd*1%-1ltsu'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', None)
+DEBUG = True
 
-ALLOWED_HOSTS = ['univers-transit.com', 'localhost']
+ALLOWED_HOSTS = ['survey.univers-transit.com','univers-transit.com', 'localhost', '127.0.0.1']
 
 
 # Application definition

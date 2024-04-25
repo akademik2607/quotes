@@ -1,9 +1,11 @@
  {% extends 'admin/change_form.html' %}
  {% block object-tools %}
-   <form action="{% url 'quotes:create_pdf' %}?id={{ object_id }}" method="POST">
-     {% csrf_token %}
+<!--   <form action="{% url 'quotes:create_pdf' %}?id={{ object_id }}" method="POST">-->
+<!--     {% csrf_token %}-->
 
-     <input type="submit" value="Create Pdf" />
-   </form>
+<!--     <input type="submit" value="Create Pdf" />-->
+<!--   </form>-->
+    <a class="create-pdf__button" href="{% url 'quotes:create_pdf' %}?id={{ object_id }}" target="_blank">Create Pdf</a>
+   <a href="http://survey.univers-transit.com/quotes/download/{{original.name}}_{{original.id}}_{{original.quotation_number}}.pdf" download>{{original}}</a>
      {{ block.super }}
  {% endblock %}
