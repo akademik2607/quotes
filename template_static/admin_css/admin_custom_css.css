@@ -33,9 +33,7 @@ fieldset .fieldBox.field-service_type, fieldset .fieldBox.field-method {
 }
 
 
-input[name="_addanother"]{
-    display: none;
-}
+
 
 .has_original.dynamic-serviceincludes_set select,.has_original.dynamic-serviceexcludes_set select{
     pointer-events: none;

@@ -96,11 +96,11 @@ def create_pdf(request):
         request=request)
 
 
-    config = pdfkit.configuration(wkhtmltopdf=r'D:\wkhtmltopdf\bin\wkhtmltopdf.exe')
+    # config = pdfkit.configuration(wkhtmltopdf=r'D:\wkhtmltopdf\bin\wkhtmltopdf.exe')
     pdfkit.from_string(
         pdf_template,
         f'{BASE_DIR}/media/{quote.name}_{quote.id}_{quote.quotation_number}.pdf',
-        configuration=config,
+        # configuration=config,
         options={"enable-local-file-access": ""}
     )
 
@@ -112,30 +112,30 @@ def create_pdf(request):
     freight_supplier = international_freight_s.supplier
     destination_supplier = destination_service.supplier
 
-    # r = requests.post('https://hook.eu1.make.com/m5txkpgp588v0p6nzunv8s5v3hchquky',
-    #                   json={
-    #                       'item_id': quote.item_id,
-    #                       'quotation_num': quote.quotation_number,
-    #                        'name': quote.name,
-    #                         'quotation_ref': quote.quotation_ref,
-    #                         'origin_country': quote.origin_country,
-    #                         'origin_city': quote.origin_city,
-    #                         'service_type': quote.service_type,
-    #                         'method': quote.method,
-    #                         'volume': quote.volume,
-    #                         'destination': quote.destination_country,
-    #                         'freight_mode': quote.freight_mode,
-    #                         'transit_time': quote.transit_time,
-    #                         'weight_up_to': quote.weight_up_to,
-    #                         'currency': quote.currency,
-    #                         'total_sale': total_sale,
-    #                         'total_buy': total_buy,
-    #
-    #                         'origin_supplier': origin_supplier,
-    #                         'freight_supplier': freight_supplier,
-    #                         'destination_supplier': destination_supplier,
-    #                         'pdf_url': f'{request.META["HTTP_HOST"]}/media/{quote.name}_{quote.id}_{quote.quotation_number}.pdf'
-    #                       })
+    r = requests.post('https://hook.eu1.make.com/m5txkpgp588v0p6nzunv8s5v3hchquky',
+                      json={
+                          'item_id': quote.item_id,
+                          'quotation_num': quote.quotation_number,
+                           'name': quote.name,
+                            'quotation_ref': quote.quotation_ref,
+                            'origin_country': quote.origin_country,
+                            'origin_city': quote.origin_city,
+                            'service_type': quote.service_type,
+                            'method': quote.method,
+                            'volume': quote.volume,
+                            'destination': quote.destination_country,
+                            'freight_mode': quote.freight_mode,
+                            'transit_time': quote.transit_time,
+                            'weight_up_to': quote.weight_up_to,
+                            'currency': quote.currency,
+                            'total_sale': total_sale,
+                            'total_buy': total_buy,
+
+                            'origin_supplier': origin_supplier,
+                            'freight_supplier': freight_supplier,
+                            'destination_supplier': destination_supplier,
+                            'pdf_url': f'{request.META["HTTP_HOST"]}/media/{quote.name}_{quote.id}_{quote.quotation_number}.pdf'
+                          })
 
     return render(request, 'EnglishQuote.html', context={
         'object': quote,
