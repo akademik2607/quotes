@@ -17,10 +17,14 @@ from django.views.decorators.csrf import csrf_exempt
 from config.settings import BASE_DIR
 from quotes.models import Quote,  ServiceIncludes, ServiceExcludes, Services, Currencies
 from quotes.appconstants import SERVICES
+from rest_framework import generics
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 import pdfkit
 
 from tools.functions import get_sale_price, get_show_perms
+from tools.monday_quries import MondayEngine
 
 
 def create_pdf(request):
@@ -127,7 +131,7 @@ def create_pdf(request):
                             'freight_mode': quote.freight_mode,
                             'transit_time': quote.transit_time,
                             'weight_up_to': quote.weight_up_to,
-                            'currency': quote.currency,
+                            'currency': quote.currency.label if quote.qurrency else '',
                             'total_sale': total_sale,
                             'total_buy': total_buy,
 
@@ -165,10 +169,10 @@ def create_quote_hook(request):
     origin_city = data.get('origin_city', None)
     service_type = data.get('service_type', 'Door to Door')
     method = data.get('method', 'TestMethod')
-    volume = data.get('volume', 42)
+    volume = data.get('volume', 0)
     destination = data.get('destination', 'DestinationTest')
     freight_mode = data.get('freight_mode', 'TestFreightMode')
-    transit_time = data.get('transit_time', 23)
+    transit_time = data.get('transit_time', '')
     weight_up_to = data.get('weight_up_to', 'TestWeightUpTo')
     currency = data.get('currency', None)
 
@@ -214,4 +218,52 @@ def download_pdf(request, *args, **kwargs):
         return response
 
 
+@csrf_exempt
+@api_view(('post',))
+def create_quote_api(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        challenge = data.get('challenge')
+        if challenge:
+            print(data)
+            return Response(data={'challenge': challenge})
+        else:
+            print(data)
+            quote_data = MondayEngine().get_monday_quote_columns_values(data['event']['pulseId'])
+            requests.post(url=f"{BASE_DIR}/quotes/create-quote/", json=json.dumps(quote_data))
+#       'pulseNa'])
 
+            return Response(data={'data': challenge})
+            
+
+
+#[Sat Apr 27 07:24:26.793677 2024]
+# [wsgi:error] [pid 484429]
+# [remote 185.66.202.1:52002]
+# {'event':
+#   {
+#       'app': 'monday',
+#       'type': 'update_column_value',
+#       'triggerTime': '2024-04-27T07:24:26.441Z',
+#       'subscriptionId': 26330262,
+#       'userId': -4,
+#       'originalTriggerUuid':
+#       '7588a290a76f59d9f5778664380814b6',
+#       'boardId': 1238995514,
+#       'groupId':
+#       'new_group32722',
+#       'pulseId': 1470349673,
+#       'pulseName': 'DRORY NOMI',
+#       'columnId': 'numbers32',
+#       'columnType':
+#       'numeric',
+#       'columnTitle':
+#       'Num of Quotes',
+#       'value':
+#       {'value': 13, 'unit': None},
+#       'previousValue': {'value': 12, 'unit': None},
+#       'changedAt': 1714202666.1066997,
+#       'isTopGroup': True,
+#       'triggerUuid': '0b78909796e5310d37f5306e000094ee'
+#     }
+#  }

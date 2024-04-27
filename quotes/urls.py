@@ -26,6 +26,7 @@ app_name = 'quotes'
 urlpatterns = [
     path('download/<str:slug>', views.download_pdf, name='download_pdf'),
     path('create-quote/', views.create_quote_hook),
+    path('api/create-quote/', views.create_quote_api),
     path('', views.create_pdf, name='create_pdf')
 ]
 

@@ -5,7 +5,7 @@ from django.db.models import Q
 from django.utils.html import format_html
 
 from config.settings import BASE_DIR
-from quotes.models import Quote, Services, Currencies, ServiceIncludes, ServiceExcludes, SERVICE_TYPES
+from quotes.models import Quote, Services, Currencies, ServiceIncludes, ServiceExcludes, SERVICE_TYPES, CalculateType
 from tools.functions import get_show_perms, get_sale_price
 
 
@@ -172,6 +172,11 @@ class ServiceIncludesAdminModel(admin.ModelAdmin):
 # @admin.register(ServiceExcludes)
 # class ServiceExcludesAdminModel(admin.ModelAdmin):
 #     pass
+
+
+@admin.register(CalculateType)
+class CalculateTypeModel(admin.ModelAdmin):
+    pass
 
 
 @admin.register(Currencies)

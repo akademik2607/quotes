@@ -32,3 +32,5 @@ urlpatterns = [
 if DEBUG == True:
     urlpatterns += static(STATIC_URL, document_root=STATIC_ROOT)
     urlpatterns += static(MEDIA_URL, document_root=MEDIA_ROOT)
+
+admin.site.site_header = 'My admin'
